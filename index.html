@@ -1,46 +1,61 @@
 <!DOCTYPE html>
 <html>
     <body>
-        <h1 id="toc_0">分表事务</h1>
+        <h1 id="">分表事务</h1>
         
-        <h3 id="toc_1">环境准备</h3>
+        <h3 id="-1">环境准备</h3>
         
         <ol>
             <li><p><code>post_manage</code>,<code>page_main</code>,<code>post_main</code>,<code>pic_main</code>(<code>pic_arch_map</code>,<code>mp_post</code>?)
                 四个建表及数据导入脚本</p></li>
-            <li><p>管理工具</p>
-                
-                <blockquote>
-                    <p>根据<code>page_id</code>获取所有信息（<code>site_main</code>,<code>page_main</code>,<code>post_main</code>,<code>post_manage</code>,<code>mp_post</code>)</p>
+            
+            <li><p>管理工具</p></li>
+            </ol>
+            
+            <blockquote>
+              <p>根据<code>page_id</code>获取所有信息（<code>site_main</code>,<code>page_main</code>,<code>post_main</code>,<code>post_manage</code>,<code>mp_post</code>)</p>
+              
+                <p>根据<code>pic_id</code>获取所有信息(<code>pic_main</code>,<code>pic_arch_map</code>)</p>
+                </blockquote>
 
-                    <p>根据<code>pic_id</code>获取所有信息(<code>pic_main</code>,<code>pic_arch_map</code>)</p>
-                </blockquote></li>
-                <li><p>建立<code>page_dbs</code>(<code>site_id</code>,<code>page_id</code>,<code>db</code>字段，待考虑)以及<code>pic_dbs</code>(<code>site_id</code>,<code>pic_id</code>,<code>db</code>)，并导入数据</p></li>
-                <li><p><code>d-mydqli.php</code>数据库逻辑封装修改</p></li>
-                <li><p>kuaizhan_cl中数据库操作相应的修改</p>
+                <ol>
+                    <li><p>建立<code>page_dbs</code>(<code>site_id</code>,<code>page_id</code>,<code>db</code>字段，待考虑)以及<code>pic_dbs</code>(<code>site_id</code>,<code>pic_id</code>,<code>db</code>)，并导入数据</p></li>
 
-                    <ol>
-                        <li>insertOrUpdate -&gt; upsert 10</li>
-                        <li>prepare 10</li>
-                        <li>fetch -&gt; fetch_one 50</li>
-                        <li>fetch<em>array -&gt; fetch</em>array 446</li>
-                        <li>fetch<em>all -&gt; fetch</em>array 5</li>
-                        <li>fetch<em>first -&gt; fetch</em>one 979</li>
-                        <li>fetch<em>one -&gt; fetch</em>one 7</li>
-                        <li>update -&gt; update 390</li>
-                        <li>updateWhere -&gt; update 1</li>
-                        <li>deleteWhere -&gt; delete 14</li>
-                    </ol></li>
-                    </ol>
+                    <li><p><code>d-mydqli.php</code>数据库逻辑封装修改</p></li>
+
+                    <li><p>kuaizhan_cl中数据库操作相应的修改</p>
+
+                        <ol>
+                            <li>insertOrUpdate -> upsert 10</li>
+
+                            <li>prepare 10</li>
+
+                            <li>fetch -> fetch_one 50</li>
+
+                            <li>fetch<em>array -> fetch</em>array 446</li>
+                            
+                            <li>fetch<em>all -> fetch</em>array 5</li>
+                            
+                            <li>fetch<em>first -> fetch</em>one 979</li>
+                            
+                            <li>fetch<em>one -> fetch</em>one 7</li>
+                            
+                            <li>update -> update 390</li>
+                            
+                            <li>updateWhere -> update 1</li>
+                            
+                            <li>deleteWhere -> delete 14</li></ol></li>
                     
-                    <p>fetch_first正则替换</p>
-                    
-                    <div><pre><code class="language-none">1. fetch_first\(\&quot;.*from\s`(.*)`\swhere\s(.*)\s?(order by.*)\&quot;\) -&gt; fetch_one(&quot;$1&quot;, &quot;$2&quot;, &quot;$3&quot;)
-                2. fetch_first\(\&quot;.*from\s`(.*)`\swhere\s(.*)\&quot;\) -&gt; fetch_one(&quot;$1&quot;, &quot;$2&quot;)
-                3. fetch_first\(\&quot;.*from\s`(.*)`\swhere\s(.*)\) -&gt; fetch_one(&quot;$1&quot;, &quot;$2)
-                4. fetch_first\(\&quot;.*from\s(.*)\swhere\s(.*)\&quot;\) -&gt; fetch_one(&quot;$1&quot;, &quot;$2&quot;)</code></pre></div>
-                        </pre></div></em>
-                </blockquote></code></li>
+                    <li><p>存在的问题</p>
+                        
+                        <ol>
+                            <li>很多地方无法获取到user_id，比如消费者中</li>
+                            
+                            <li>很多通过查表进行页面统计的查询需要修改</li>
+                            
+                            <li>列出uv top100的页面或文章</li></ol></li>
+                    </ol></em>
+            </blockquote></code></p></li>
         </ol></h>
     </body>
 </html>
